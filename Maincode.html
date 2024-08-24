@@ -8,6 +8,9 @@
         /* Add some basic styling to center the timer and buttons */
         body {
             font-family: Trebuchet MS;
+            background-image: url("shogi.jpg");
+            background-position: cover;
+            background-size: cover;
             text-align: center;
         }
         
@@ -86,7 +89,7 @@
         .card {
             width: 300px;
             height: 550px;
-            background-image: url('11717.jpg');
+            background-image: url('shogi1.jpg');
             background-size: cover;
             background-position: center;
             border: 1px solid #ddd;
@@ -145,110 +148,107 @@
         const resetButton2 = document.getElementById('reset-button-2');
         
         // Initialize the timer variables for each player
-        let startTime1 = 0;
-        let currentTime1 = 0;
-        let timerInterval1 = null;
-        let startTime2 = 0;
-        let currentTime2 = 0;
-        let timerInterval2 = null;
-        
-        // Start the timer for player 1 when the start button is clicked
-        startButton1.addEventListener('click', () => {
-            startTime1 = new Date().getTime();
-            timerInterval1 = setInterval(() => {
-                currentTime1 = new Date().getTime() - startTime1;
-                const hours = Math.floor(currentTime1 / 3600000);
-                const minutes = Math.floor((currentTime1 % 3600000) / 60000);
-                const seconds = Math.floor((currentTime1 % 60000) / 1000);
-                const milliseconds = Math.floor((currentTime1 % 1000) / 10);
+let startTime1 = 0;
+let elapsedTime1 = 0;  // Track the elapsed time
+let timerInterval1 = null;
+let startTime2 = 0;
+let elapsedTime2 = 0;  // Track the elapsed time
+let timerInterval2 = null;
 
-                // Display the time in the format "hh:mm:ss.ms"
-                timerText1.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.${milliseconds.toString().padStart(2, '0')}`;
-            }, 10);
+// Start the timer for player 1 when the start button is clicked
+startButton1.addEventListener('click', () => {
+    startTime1 = new Date().getTime() - elapsedTime1;  // Adjust the start time
+    timerInterval1 = setInterval(() => {
+        elapsedTime1 = new Date().getTime() - startTime1;
+        const hours = Math.floor(elapsedTime1 / 3600000);
+        const minutes = Math.floor((elapsedTime1 % 3600000) / 60000);
+        const seconds = Math.floor((elapsedTime1 % 60000) / 1000);
+        const milliseconds = Math.floor((elapsedTime1 % 1000) / 10);
 
-            // Enable the stop and reset buttons for player 1
-            stopButton1.removeAttribute('disabled');
-            resetButton1.removeAttribute('disabled');
+        // Display the time in the format "hh:mm:ss.ms"
+        timerText1.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.${milliseconds.toString().padStart(2, '0')}`;
+    }, 10);
 
-            // Disable the start button for player 1
-            startButton1.setAttribute('disabled', '');
-        });
+    // Enable the stop and reset buttons for player 1
+    stopButton1.removeAttribute('disabled');
+    resetButton1.removeAttribute('disabled');
+    startButton1.setAttribute('disabled');
+});
 
-        // Stop the timer for player 1 when the stop button is clicked
-        stopButton1.addEventListener('click', () => {
-            clearInterval(timerInterval1);
-            timerInterval1 = null;
+// Stop the timer for player 1 when the stop button is clicked
+stopButton1.addEventListener('click', () => {
+    clearInterval(timerInterval1);
+    timerInterval1 = null;
 
-            // Disable the stop button for player 1
-            stopButton1.setAttribute('disabled', '');
-        });
+    // Disable the stop button for player 1
+    stopButton1.setAttribute('disabled', '');
+});
 
-        // Reset the timer for player 1 when the reset button is clicked
-        resetButton1.addEventListener('click', () => {
-            clearInterval(timerInterval1);
-            timerInterval1 = null;
+// Reset the timer for player 1 when the reset button is clicked
+resetButton1.addEventListener('click', () => {
+    clearInterval(timerInterval1);
+    timerInterval1 = null;
 
-            // Reset the timer variables for player 1
-            startTime1 = 0;
-            currentTime1 = 0;
+    // Reset the timer variables for player 1
+    startTime1 = 0;
+    elapsedTime1 = 0;
 
-            // Update the timer display for player 1
-            timerText1.textContent = '00:00:00.00';
+    // Update the timer display for player 1
+    timerText1.textContent = '00:00:00.00';
 
-            // Enable the start button and disable the stop and reset buttons for player 1
-            startButton1.removeAttribute('disabled');
-            stopButton1.setAttribute('disabled', '');
-            resetButton1.setAttribute('disabled', '');
-        });
+    // Enable the start button and disable the stop and reset buttons for player 1
+    startButton1.removeAttribute('disabled');
+    stopButton1.setAttribute('disabled', '');
+    resetButton1.setAttribute('disabled', '');
+});
 
-        // Start the timer for player 2 when the start button is clicked
-        startButton2.addEventListener('click', () => {
-            startTime2 = new Date().getTime();
-            timerInterval2 = setInterval(() => {
-                currentTime2 = new Date().getTime() - startTime2;
-                const hours = Math.floor(currentTime2 / 3600000);
-                const minutes = Math.floor((currentTime2 % 3600000) / 60000);
-                const seconds = Math.floor((currentTime2 % 60000) / 1000);
-                const milliseconds = Math.floor((currentTime2 % 1000) / 10);
+// Start the timer for player 2 when the start button is clicked
+startButton2.addEventListener('click', () => {
+    startTime2 = new Date().getTime() - elapsedTime2;  // Adjust the start time
+    timerInterval2 = setInterval(() => {
+        elapsedTime2 = new Date().getTime() - startTime2;
+        const hours = Math.floor(elapsedTime2 / 3600000);
+        const minutes = Math.floor((elapsedTime2 % 3600000) / 60000);
+        const seconds = Math.floor((elapsedTime2 % 60000) / 1000);
+        const milliseconds = Math.floor((elapsedTime2 % 1000) / 10);
 
-                // Display the time in the format "hh:mm:ss.ms"
-                timerText2.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.${milliseconds.toString().padStart(2, '0')}`;
-            }, 10);
+        // Display the time in the format "hh:mm:ss.ms"
+        timerText2.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.${milliseconds.toString().padStart(2, '0')}`;
+    }, 10);
 
-            // Enable the stop and reset buttons for player 2
-            stopButton2.removeAttribute('disabled');
-            resetButton2.removeAttribute('disabled');
+    // Enable the stop and reset buttons for player 2
+    stopButton2.removeAttribute('disabled');
+    resetButton2.removeAttribute('disabled');
+    startButton2.setAttribute('disabled');
+});
 
-            // Disable the start button for player 2
-            startButton2.setAttribute('disabled', '');
-        });
+// Stop the timer for player 2 when the stop button is clicked
+stopButton2.addEventListener('click', () => {
+    clearInterval(timerInterval2);
+    timerInterval2 = null;
 
-        // Stop the timer for player 2 when the stop button is clicked
-        stopButton2.addEventListener('click', () => {
-            clearInterval(timerInterval2);
-            timerInterval2 = null;
+    // Disable the stop button for player 2
+    stopButton2.setAttribute('disabled', '');
+});
 
-            // Disable the stop button for player 2
-            stopButton2.setAttribute('disabled', '');
-        });
+// Reset the timer for player 2 when the reset button is clicked
+resetButton2.addEventListener('click', () => {
+    clearInterval(timerInterval2);
+    timerInterval2 = null;
 
-        // Reset the timer for player 2 when the reset button is clicked
-        resetButton2.addEventListener('click', () => {
-            clearInterval(timerInterval2);
-            timerInterval2 = null;
+    // Reset the timer variables for player 2
+    startTime2 = 0;
+    elapsedTime2 = 0;
 
-            // Reset the timer variables for player 2
-            startTime2 = 0;
-            currentTime2 = 0;
+    // Update the timer display for player 2
+    timerText2.textContent = '00:00:00.00';
 
-            // Update the timer display for player 2
-            timerText2.textContent = '00:00:00.00';
+    // Enable the start button and disable the stop and reset buttons for player 2
+    startButton2.removeAttribute('disabled');
+    stopButton2.setAttribute('disabled', '');
+    resetButton2.setAttribute('disabled', '');
+});
 
-            // Enable the start button and disable the stop and reset buttons for player 2
-            startButton2.removeAttribute('disabled');
-            stopButton2.setAttribute('disabled', '');
-            resetButton2.setAttribute('disabled', '');
-        });
     </script>
 </body>
 </html>
