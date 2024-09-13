@@ -169,11 +169,23 @@
   padding: 20px;
 }
 
+#Lance {
+            width: 50px;
+            height: 50px;
+            background-image: url('Lance.png');;
+            position: absolute;
+            top: 100%;
+            left: 50;
+        }
+
     </style>
 </head>
 <body>
     <div class="center-card">
         <div class="card square-card"></div>
+        <div id="Lance">
+            <img src="Lance.png" alt="Shogi Coin" width="100" height="80">
+        </div>    
       </div>
       <div class="Elimination-card-1">
         <div class="card top-card"></div>
@@ -331,6 +343,33 @@
             stopButton2.setAttribute('disabled', '');
             resetButton2.setAttribute('disabled', '');
         });
+        const coin = document.getElementById('Lance');
+        let topPosition = 0;
+        let leftPosition = 0;
+
+        document.addEventListener('keydown', (event) => {
+            const step = 52; // Movement step in pixels
+
+            switch (event.key) {
+                case 'ArrowUp':
+                    topPosition -= step;
+                    break;
+                case 'ArrowDown':
+                    topPosition += step;
+                    break;
+                case 'ArrowLeft':
+                    leftPosition -= step;
+                    break;
+                case 'ArrowRight':
+                    leftPosition += step;
+                    break;
+            }
+
+            // Update the coin's position
+            coin.style.top = `${topPosition}px`;
+            coin.style.left = `${leftPosition}px`;
+        });
+
     </script>
 </body>
 </html>
